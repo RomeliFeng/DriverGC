@@ -456,7 +456,7 @@ bool Functions::Special_Cacel(const quint16& salveAdd)
 
 Functions::Functions()
 {
-    _Ptc.GoToThread(&_PtcThread);
+    //    _Ptc.GoToThread(&_PtcThread);
     connect(this, &Functions::Send, &_Ptc, &Protocol::Send); //, Qt::BlockingQueuedConnection);
     connect(this, &Functions::Open, &_Ptc, &Protocol::Open); //, Qt::BlockingQueuedConnection);
     connect(this, &Functions::Close, &_Ptc, &Protocol::Close); //, Qt::BlockingQueuedConnection);
