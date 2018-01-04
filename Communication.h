@@ -1,7 +1,6 @@
 #ifndef COMMUNICATION_H
 #define COMMUNICATION_H
 
-#include "Debug.h"
 #include "drivergc_global.h"
 #include <QByteArray>
 #include <QDateTime>
