@@ -6,6 +6,8 @@
 #include "drivergc_global.h"
 #include <QBitArray>
 #include <QByteArray>
+#include <QMutex>
+#include <QMutexLocker>
 #include <QObject>
 #include <QThread>
 
@@ -72,6 +74,7 @@ protected:
     Functions();
     Protocol _Ptc;
     QThread _PtcThread;
+    QMutex mutex;
 signals:
     bool Send(quint16 salveAdd, Protocol::Command cmd,
         QByteArray& dataSend, QByteArray& dataReceive);
