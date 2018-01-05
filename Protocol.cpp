@@ -73,7 +73,7 @@ bool Protocol::Send(const quint16& salveAdd, const Command& cmd,
     const QByteArray& dataSend, QByteArray& dataReceive)
 {
     // 锁定，防止多线程重入
-    QMutexLocker locker(&mutex);
+    //    QMutexLocker locker(&mutex);
     bool status = false;
     QByteArray frame;
     quint8 sum = 0;
@@ -104,6 +104,8 @@ bool Protocol::Send(const quint16& salveAdd, const Command& cmd,
     }
     frame.append(sum);
 
+    DebugOut("I'am in");
+    mutex.lock();
     // 建立一个等待信号
     DebugOut(QString("Controller:%1").arg(salveAdd));
     WaitForSignalHelper helper(this, SIGNAL(ReceiveDone()));
@@ -120,6 +122,8 @@ bool Protocol::Send(const quint16& salveAdd, const Command& cmd,
         }
     }
     status = Analysis(salveAdd, cmd, dataReceive);
+    DebugOut("I'am out");
+    mutex.unlock();
     return status;
 }
 
