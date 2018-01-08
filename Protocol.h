@@ -3,6 +3,8 @@
 
 #include "Communication.h"
 #include "drivergc_global.h"
+
+#include "WaitForSignalHelper.h"
 #include <QByteArray>
 #include <QDataStream>
 #include <QList>
@@ -94,6 +96,8 @@ protected:
 private:
     QMutex mutex;
     QMetaEnum meCommand;
+    WaitForSignalHelper helper;
+    bool flag=false;
 };
 
 #endif // PROTOCOL_H

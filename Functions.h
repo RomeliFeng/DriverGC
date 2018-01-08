@@ -11,7 +11,7 @@
 #include <QObject>
 #include <QThread>
 
-class DRIVERGCSHARED_EXPORT Functions : public QObject {
+class DRIVERGCSHARED_EXPORT Functions : public Protocol {
     Q_OBJECT
 public:
     enum StepMotor : quint8 {
@@ -72,15 +72,15 @@ public:
 
 protected:
     Functions();
-    Protocol _Ptc;
-    QThread _PtcThread;
-    QMutex mutex;
-signals:
-    bool Send(quint16 salveAdd, Protocol::Command cmd,
-        QByteArray& dataSend, QByteArray& dataReceive);
-    bool Open(const QString& port, const quint32& baud = 500000);
-    bool Close();
-    void DebugOut(QString msg, QDateTime curTime = QDateTime::currentDateTime());
+//    Protocol _Ptc;
+//    QThread _PtcThread;
+//    QMutex mutex;
+//signals:
+// /   bool Send(quint16 salveAdd, Protocol::Command cmd,
+ //       QByteArray& dataSend, QByteArray& dataReceive);
+ //   bool Open(const QString& port, const quint32& baud = 500000);
+ //   bool Close();
+  //  void DebugOut(QString msg, QDateTime curTime = QDateTime::currentDateTime());
 };
 
 #endif // FUNCTIONS_H

@@ -1,6 +1,5 @@
 #include "Protocol.h"
 #include "Convert.h"
-#include "WaitForSignalHelper.h"
 #include <QDateTime>
 #include <QDebug>
 #include <QMutex>
@@ -24,7 +23,7 @@
 #define FRAME_DATA_DATA_POS (FRAME_DATA_POS + FRAME_RCVCMD_LENGHT) //数据帧里实际数据的位置
 #define FRAME_CHECK_LENGHT 1
 
-Protocol::Protocol()
+Protocol::Protocol():helper(this, SIGNAL(ReceiveDone()))
 {
     meCommand = QMetaEnum::fromType<Protocol::Command>();
 }
@@ -37,7 +36,7 @@ bool Protocol::Analysis(quint16 salveAdd, Protocol::Command cmd, QByteArray& dat
         if (item.at(FRAME_SALVEADD_POS) != salveAdd) {
             DebugOut("Here is an illegitimate child");
         } else {
-            if (item.at(FRAME_DATA_POS) != quint8(cmd)) {
+            if (quint8(item.at(FRAME_DATA_POS)) != quint8(cmd)) {
                 DebugOut("Here is incongruous");
             } else {
                 Command pc = (Command)item.at(FRAME_CMD_POS);
@@ -108,10 +107,10 @@ bool Protocol::Send(const quint16& salveAdd, const Command& cmd,
     mutex.lock();
     // 建立一个等待信号
     DebugOut(QString("Controller:%1").arg(salveAdd));
-    WaitForSignalHelper helper(this, SIGNAL(ReceiveDone()));
     for (quint8 i = 0; i < RESEND_TIMES; ++i) {
         _RcvBuf.clear();
         _RcvFrameList.clear();
+        flag=false;
         _com.write(frame);
         DebugOut(QString("Send:%1").arg(meCommand.valueToKey(cmd)));
         DebugOut(QString("Frame:%1").arg(QString(frame.toHex())));
@@ -138,6 +137,7 @@ void Protocol::ReceiveEvent()
     _RcvBuf.append(_com.readAll());
     while (_RcvBuf.length() >= FRAME_LENGHT_BEFORE_DATA) {
         //如果拿到了大于数据长度位置的帧计算本帧长度
+        qDebug()<<QDateTime::currentDateTime().toString("yy:hh:ss:zzz") <<"RAW:"<<QString(_RcvBuf.toHex());
         quint16 dataLenght = (Convert::toqint16(_RcvBuf.mid(FRAME_DATALEN_POS, 2)));
         quint16 frameLenght = FRAME_LENGHT_BEFORE_DATA + dataLenght + FRAME_CHECK_LENGHT;
         if (!((_RcvBuf.at(0) == FRAME_HEAD1) && (_RcvBuf.at(1) == FRAME_HEAD2))) {
