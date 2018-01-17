@@ -15,8 +15,8 @@ class DRIVERGCSHARED_EXPORT Functions : public Protocol {
     Q_OBJECT
 public:
     enum StepMotor : quint8 {
-        StepMotor_CW = 0x01,
-        StepMotor_CCW = 0x00,
+        StepMotor_CW = 0x00,
+        StepMotor_CCW = 0x01,
         StepMotor_Stop = 0xff
     };
 

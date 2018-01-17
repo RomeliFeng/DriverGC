@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <QMutex>
 
-#define RCV_TIMEOUT 200 //命令超时时间，单位ms
+#define RCV_TIMEOUT 1000 //命令超时时间，单位ms
 #define RESEND_TIMES 3 //命令失败重试次数
 
 #define FRAME_HEAD_POS 0
@@ -114,11 +114,12 @@ bool Protocol::Send(const quint16& salveAdd, const Command& cmd,
         _com.write(frame);
         DebugOut(QString("Send:%1").arg(meCommand.valueToKey(cmd)));
         DebugOut(QString("Frame:%1").arg(QString(frame.toHex())));
-        if (helper.wait(RCV_TIMEOUT)) {
-            break;
-        } else {
-            DebugOut("Waitting receive timeout");
-        }
+
+//        if (helper.wait(RCV_TIMEOUT)) {
+//            break;
+//        } else {
+//            DebugOut("Waitting receive timeout");
+//        }
     }
     status = Analysis(salveAdd, cmd, dataReceive);
     DebugOut("I'am out");
@@ -153,6 +154,8 @@ void Protocol::ReceiveEvent()
                 _RcvFrameList.append(_RcvBuf.mid(0, frameLenght));
                 _RcvBuf.remove(0, frameLenght);
             } else {
+                _RcvBuf.remove(0,_RcvBuf.length());
+                emit ReceiveDone();
                 DebugOut("Frame check sum error");
             }
             if (_RcvFrameList.count() == 2) {

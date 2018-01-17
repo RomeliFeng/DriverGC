@@ -49,9 +49,10 @@ QByteArray Convert::from(const QBitArray& data)
         byteArray.resize(data.size() / 8);
     }
 
+
     // Convert from QBitArray to QByteArray
     for (quint16 i = 0; i < data.count(); ++i) {
-        byteArray[i / 8] = (byteArray.at(i / 8) | ((data[i] ? 1 : 0) << (7 - (i % 8))));
+        byteArray[i / 8] = (byteArray.at(i / 8) | ((data[i] ? 1 : 0) << (i % 8)));
     }
     return byteArray;
 }
