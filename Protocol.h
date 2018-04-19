@@ -97,7 +97,6 @@ private:
     QMutex mutex;
     QMetaEnum meCommand;
     WaitForSignalHelper helper;
-    bool flag=false;
 };
 
 #endif // PROTOCOL_H

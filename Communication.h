@@ -12,19 +12,24 @@
 #include <QString>
 #include <QThread>
 
-class DRIVERGCSHARED_EXPORT Communication : public QObject {
+class DRIVERGCSHARED_EXPORT Communication : public QThread {
     Q_OBJECT
 public:
     bool Open(const QString& port, const quint32& baud = 500000);
     bool Close();
+    bool IsOpened();
 signals:
     void DebugOut(QString msg, QDateTime curTime = QDateTime::currentDateTime());
+    void ErrorOut(QString msg1, QString msg2);
 
 protected:
     QSerialPort _com;
 
     ~Communication();
     virtual void ReceiveEvent() = 0;
+
+public slots:
+    void GetSerialError(QSerialPort::SerialPortError error);
 };
 
 #endif // COMMUNICATION_H

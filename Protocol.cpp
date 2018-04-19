@@ -1,4 +1,4 @@
-#include "Protocol.h"
+﻿#include "Protocol.h"
 #include "Convert.h"
 #include <QDateTime>
 #include <QDebug>
@@ -110,16 +110,14 @@ bool Protocol::Send(const quint16& salveAdd, const Command& cmd,
     for (quint8 i = 0; i < RESEND_TIMES; ++i) {
         _RcvBuf.clear();
         _RcvFrameList.clear();
-        flag=false;
         _com.write(frame);
         DebugOut(QString("Send:%1").arg(meCommand.valueToKey(cmd)));
         DebugOut(QString("Frame:%1").arg(QString(frame.toHex())));
-
-//        if (helper.wait(RCV_TIMEOUT)) {
-//            break;
-//        } else {
-//            DebugOut("Waitting receive timeout");
-//        }
+        if (helper.wait(RCV_TIMEOUT)) {
+            break;
+        } else {
+            DebugOut("Waitting receive timeout");
+        }
     }
     status = Analysis(salveAdd, cmd, dataReceive);
     DebugOut("I'am out");

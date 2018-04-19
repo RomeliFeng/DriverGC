@@ -39,7 +39,7 @@ QByteArray Convert::from(const qint32& data)
 {
     return from(quint32(data));
 }
-
+#include <QDebug>
 QByteArray Convert::from(const QBitArray& data)
 {
     QByteArray byteArray;
@@ -48,12 +48,14 @@ QByteArray Convert::from(const QBitArray& data)
     } else {
         byteArray.resize(data.size() / 8);
     }
-
+    byteArray.fill(0);
 
     // Convert from QBitArray to QByteArray
     for (quint16 i = 0; i < data.count(); ++i) {
         byteArray[i / 8] = (byteArray.at(i / 8) | ((data[i] ? 1 : 0) << (i % 8)));
     }
+    qDebug()<<data;
+    qDebug()<<byteArray;
     return byteArray;
 }
 
