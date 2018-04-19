@@ -72,15 +72,6 @@ public:
 
 protected:
     Functions();
-//    Protocol _Ptc;
-//    QThread _PtcThread;
-//    QMutex mutex;
-//signals:
-// /   bool Send(quint16 salveAdd, Protocol::Command cmd,
- //       QByteArray& dataSend, QByteArray& dataReceive);
- //   bool Open(const QString& port, const quint32& baud = 500000);
- //   bool Close();
-  //  void DebugOut(QString msg, QDateTime curTime = QDateTime::currentDateTime());
 };
 
 #endif // FUNCTIONS_H
