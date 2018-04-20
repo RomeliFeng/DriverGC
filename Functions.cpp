@@ -2,14 +2,11 @@
 
 bool Functions::Inquire_Limit(const quint16& salveAdd, QBitArray& limitData)
 {
-    DebugOut("IN FUNC");
     QByteArray dataSend, dataReceive;
     if (!Send(salveAdd, Protocol::Command_Inquire_Limit, dataSend, dataReceive)) {
-        DebugOut("OUT FUNC");
         return false;
     }
     limitData = Convert::tobool(dataReceive);
-    DebugOut("OUT FUNC");
     return true;
 }
 
@@ -38,15 +35,12 @@ bool Functions::Inquire_Valve(const quint16& salveAdd, QBitArray& valveData)
 bool Functions::Inquire_Encoder(const quint16& salveAdd, const quint8& ch,
     qint32& encoderData)
 {
-    DebugOut("IN FUNC");
     QByteArray dataSend, dataReceive;
     dataSend.append(ch);
     if (!Send(salveAdd, Protocol::Command_Inquire_Encoder, dataSend, dataReceive)) {
-        DebugOut("OUT FUNC");
         return false;
     }
     encoderData = Convert::toqint32(dataReceive);
-    DebugOut("OUT FUNC");
     return true;
 }
 
@@ -255,16 +249,13 @@ bool Functions::AutoControl_SM_By_Step(const quint16& salveAdd,
     const quint8& ch,
     const qint32& step)
 {
-    DebugOut("IN FUNC");
     QByteArray dataSend, dataReceive;
     dataSend.append(Convert::from(ch));
     dataSend.append(Convert::from(step));
     qDebug() << "step:" << step;
     if (Send(salveAdd, Protocol::Command_AutoControl_SM_By_Step, dataSend, dataReceive)) {
-        DebugOut("OUT FUNC");
         return true;
     }
-    DebugOut("OUT FUNC");
     return false;
 }
 
