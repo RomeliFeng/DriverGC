@@ -133,7 +133,7 @@ void Protocol::ReceiveEvent()
     _RcvBuf.append(_com.readAll());
     while (_RcvBuf.length() >= FRAME_LENGHT_BEFORE_DATA) {
         //如果拿到了大于数据长度位置的帧计算本帧长度
-        qDebug() << QDateTime::currentDateTime().toString("yy:hh:ss:zzz") << "RAW:" << QString(_RcvBuf.toHex());
+        DebugOut(QDateTime::currentDateTime().toString("yy:hh:ss:zzz") + "RAW:" + QString(_RcvBuf.toHex()));
         quint16 dataLenght = (Convert::toqint16(_RcvBuf.mid(FRAME_DATALEN_POS, 2)));
         quint16 frameLenght = FRAME_LENGHT_BEFORE_DATA + dataLenght + FRAME_CHECK_LENGHT;
         if (!((_RcvBuf.at(0) == FRAME_HEAD1) && (_RcvBuf.at(1) == FRAME_HEAD2))) {
