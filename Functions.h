@@ -69,6 +69,8 @@ public:
     bool Special_Stop(const quint16& salveAdd);
     bool Special_Continue(const quint16& salveAdd);
     bool Special_Cacel(const quint16& salveAdd);
+    bool Special_Save(const quint16& salveAdd);
+    bool Special_Init(const quint16& salveAdd);
 
 protected:
     Functions();

@@ -259,7 +259,7 @@ bool Functions::AutoControl_SM_By_Step(const quint16& salveAdd,
     QByteArray dataSend, dataReceive;
     dataSend.append(Convert::from(ch));
     dataSend.append(Convert::from(step));
-    qDebug()<<"step:"<<step;
+    qDebug() << "step:" << step;
     if (Send(salveAdd, Protocol::Command_AutoControl_SM_By_Step, dataSend, dataReceive)) {
         DebugOut("OUT FUNC");
         return true;
@@ -498,6 +498,24 @@ bool Functions::Special_Cacel(const quint16& salveAdd)
 
     QByteArray dataSend, dataReceive;
     if (Send(salveAdd, Protocol::Command_Special_Cacel, dataSend, dataReceive)) {
+        return true;
+    }
+    return false;
+}
+
+bool Functions::Special_Save(const quint16& salveAdd)
+{
+    QByteArray dataSend, dataReceive;
+    if (Send(salveAdd, Protocol::Command_Special_Save, dataSend, dataReceive)) {
+        return true;
+    }
+    return false;
+}
+
+bool Functions::Special_Init(const quint16& salveAdd)
+{
+    QByteArray dataSend, dataReceive;
+    if (Send(salveAdd, Protocol::Command_Special_Init, dataSend, dataReceive)) {
         return true;
     }
     return false;
