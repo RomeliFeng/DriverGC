@@ -160,6 +160,16 @@ bool Functions::Inquire_SpecialDoubleADCTrigger(const quint16& salveAdd)
     return true;
 }
 
+bool Functions::Inquire_FlowValue(const quint16& salveAdd, quint32& flowData)
+{
+    QByteArray dataSend, dataReceive;
+    if (!Send(salveAdd, Protocol::Command_Inquire_FlowValue, dataSend, dataReceive)) {
+        return false;
+    }
+    flowData = Convert::toquint32(dataReceive);
+    return true;
+}
+
 bool Functions::Inquire_Status(const quint16& salveAdd, const quint8& ch,
     bool& status)
 {
@@ -424,6 +434,15 @@ bool Functions::Setting_SM_RelDir(const quint16& salveAdd, const quint8& ch, con
     dataSend.append(ch);
     dataSend.append(dir);
     if (Send(salveAdd, Protocol::Command_Setting_SM_RelDir, dataSend, dataReceive)) {
+        return true;
+    }
+    return false;
+}
+
+bool Functions::Setting_ClearFlowValue(const quint16& salveAdd)
+{
+    QByteArray dataSend, dataReceive;
+    if (Send(salveAdd, Protocol::Command_Setting_ClearFlowValue, dataSend, dataReceive)) {
         return true;
     }
     return false;
