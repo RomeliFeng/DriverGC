@@ -29,7 +29,8 @@ SOURCES += \
     Functions.cpp \
     Communication.cpp \
     WaitForSignalHelper.cpp \
-    Convert.cpp
+    Convert.cpp \
+    Debug.cpp
 
 HEADERS += \
         DriverGC.h \
@@ -38,7 +39,8 @@ HEADERS += \
     Functions.h \
     Communication.h \
     WaitForSignalHelper.h \
-    Convert.h
+    Convert.h \
+    Debug.h
 
 unix {
     target.path = /usr/lib
