@@ -47,8 +47,8 @@ bool Protocol::Analysis(quint16 salveAdd, Protocol::Command cmd, QByteArray& dat
                     DebugOut(QString("Frame:%1").arg(QString(item.toHex())));
                     break;
                 case Command_Post_Complete:
-                    DebugOut(QString("Frame:%1").arg(QString(item.toHex())));
                     DebugOut("Controller completed the task");
+                    DebugOut(QString("Frame:%1").arg(QString(item.toHex())));
                     //截取有用的返回数据 数据段第一个时命令
                     dataOut.append(item.mid(FRAME_DATA_DATA_POS,
                         item.length() - FRAME_DATA_DATA_POS - 1));
@@ -133,7 +133,6 @@ void Protocol::ReceiveEvent()
     _RcvBuf.append(_com.readAll());
     while (_RcvBuf.length() >= FRAME_LENGHT_BEFORE_DATA) {
         //如果拿到了大于数据长度位置的帧计算本帧长度
-        DebugOut("RAW:" + QString(_RcvBuf.toHex()));
         quint16 dataLenght = (Convert::toqint16(_RcvBuf.mid(FRAME_DATALEN_POS, 2)));
         quint16 frameLenght = FRAME_LENGHT_BEFORE_DATA + dataLenght + FRAME_CHECK_LENGHT;
         if (!((_RcvBuf.at(0) == FRAME_HEAD1) && (_RcvBuf.at(1) == FRAME_HEAD2))) {

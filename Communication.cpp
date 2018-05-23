@@ -23,6 +23,22 @@ bool Communication::Open(const QString& port, const quint32& baud)
     return false;
 }
 
+bool Communication::OpenUseSN(const QString &serialNumber, const quint32 &baud)
+{
+    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
+    {
+        if (info.serialNumber() == serialNumber)
+        {
+            if (Open(info.portName()), baud)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+    return false;
+}
+
 bool Communication::Close()
 {
     if (_com.isOpen()) {
