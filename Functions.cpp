@@ -262,7 +262,6 @@ bool Functions::AutoControl_SM_By_Step(const quint16& salveAdd,
     QByteArray dataSend, dataReceive;
     dataSend.append(Convert::from(ch));
     dataSend.append(Convert::from(step));
-    qDebug() << "step:" << step;
     if (Send(salveAdd, Protocol::Command_AutoControl_SM_By_Step, dataSend, dataReceive)) {
         return true;
     }
