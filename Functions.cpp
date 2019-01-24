@@ -255,9 +255,10 @@ bool Functions::Control_ValveClose(const quint16& salveAdd,
     return true;
 }
 
-bool Functions::Control_SM_Run_Speed(const quint16 &salveAdd, const qint32 &speed)
+bool Functions::Control_SM_Run_Speed(const quint16 &salveAdd,const quint8& ch, const qint32 &speed)
 {
     QByteArray dataSend, dataReceive;
+    dataSend.append(ch);
     dataSend.append(Convert::from(speed));
     if (!Send(salveAdd, Protocol::Command_Control_SM_Run_Speed, dataSend, dataReceive)) {
         return false;
