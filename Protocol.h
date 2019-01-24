@@ -43,6 +43,7 @@ public:
         Command_Control_DAC = 0x24,
         Command_Control_ValveOpen = 0x25,
         Command_Control_ValveClose = 0x26,
+        Command_Control_SM_Run_Speed = 0x29,
 
         Command_AutoControl_Mask = 0x40,
         Command_AutoControl_SM_By_Step = 0x41,

@@ -255,6 +255,16 @@ bool Functions::Control_ValveClose(const quint16& salveAdd,
     return true;
 }
 
+bool Functions::Control_SM_Run_Speed(const quint16 &salveAdd, const qint32 &speed)
+{
+    QByteArray dataSend, dataReceive;
+    dataSend.append(Convert::from(speed));
+    if (!Send(salveAdd, Protocol::Command_Control_SM_Run_Speed, dataSend, dataReceive)) {
+        return false;
+    }
+    return true;
+}
+
 bool Functions::AutoControl_SM_By_Step(const quint16& salveAdd,
     const quint8& ch,
     const qint32& step)
@@ -343,7 +353,7 @@ bool Functions::AutoControl_SpecialADCDoubleWithTrigger(const quint16& salveAdd)
 }
 
 bool Functions::Setting_SM_Speed(const quint16& salveAdd, const quint8& ch,
-    const quint16& speed, const quint32& accel)
+    const quint32 &speed, const quint32& accel)
 {
 
     QByteArray dataSend, dataReceive;

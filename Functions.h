@@ -43,6 +43,7 @@ public:
     bool Control_DAC(const quint16& salveAdd, const quint8& ch, const quint16& data);
     bool Control_ValveOpen(const quint16& salveAdd, const QBitArray& valveData);
     bool Control_ValveClose(const quint16& salveAdd, const QBitArray& valveData);
+    bool Control_SM_Run_Speed(const quint16& salveAdd, const qint32& speed);
 
     bool AutoControl_SM_By_Step(const quint16& salveAdd, const quint8& ch, const qint32& step);
     bool AutoControl_SM_By_Limit(const quint16& salveAdd, const quint8& ch,
@@ -54,7 +55,7 @@ public:
     bool AutoControl_SpecialADCDoubleWithTrigger(const quint16& salveAdd);
 
     bool Setting_SM_Speed(const quint16& salveAdd, const quint8& ch,
-        const quint16& speed, const quint32& accel);
+        const quint32& speed, const quint32& accel);
     bool Setting_Valve_Default(const quint16& salveAdd, const QBitArray& valveData);
     bool Setting_Encoder_Zero(const quint16& salveAdd, const quint8& ch);
     bool Setting_Protect_Limit(const quint16& salveAdd, const quint8& ch,
